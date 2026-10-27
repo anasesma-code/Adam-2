@@ -71,6 +71,7 @@ class PageContext:
         self.cfg = cfg
         self.page_num = page_num
         self.pal = pal
+        self.line_pal = pal.line_art()   # for drawings the child colours in
         self.boxes: list = []
         self.ox, self.oy = cfg.trim_origin(page_num)
         self.safe = Rect(*cfg.safe_rect(page_num))
@@ -93,9 +94,13 @@ class PageContext:
         self._group_counter += 1
         return f"{prefix}{self._group_counter}"
 
-    def art(self, fn, cx, cy, size, kind="art", group="", label="", **kw):
-        """Draw a graphics.* figure and register its bounding box."""
-        fn(self.c, cx, cy, size, self.pal, **kw)
+    def art(self, fn, cx, cy, size, kind="art", group="", label="",
+            colored=True, **kw):
+        """Draw a graphics.* figure and register its bounding box.
+
+        colored=False prints it as a black outline for the child to colour.
+        """
+        fn(self.c, cx, cy, size, self.pal if colored else self.line_pal, **kw)
         h = size / 2
         return self.register(cx - h, cy - h, cx + h, cy + h, kind=kind,
                              group=group, label=label or fn.__name__)

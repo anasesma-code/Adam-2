@@ -10,12 +10,12 @@ make venv        # crea .venv e instala dependencias (reportlab, pypdf, pillow, 
 make build       # genera output/libro_navidad_trazos.pdf y ejecuta el preflight
 make test        # tests automáticos
 make previews    # vistas previas PNG a 300 DPI en output/previews/
-make color       # variante con interior a color
+make bw          # variante en blanco y negro (impresión más barata)
 make nobleed     # variante 8.5 x 11 sin sangrado
 ```
 
 Opciones del script: `python scripts/build_book.py --help`
-(`--color`, `--no-bleed`, `--seed N` para otros laberintos, `--author`).
+(`--bw`, `--no-bleed`, `--seed N` para otros laberintos, `--author`).
 
 ## Especificaciones KDP
 
@@ -27,7 +27,7 @@ Opciones del script: `python scripts/build_book.py --help`
 | Páginas | 40 (par, dentro del rango 24-828) |
 | Fuentes | TrueType incrustadas (subconjunto) |
 | Gráficos | 100 % vectoriales, sin imágenes rasterizadas: nítidos a 300 DPI o más |
-| Color | B/N por defecto (grises solo con K en CMYK); `--color` para interior a color |
+| Color | Interior a color por defecto (CMYK); `--bw` para blanco y negro (grises solo con K) |
 
 En KDP elige **"Con sangrado"** al subir el interior de la versión por defecto.
 
@@ -43,8 +43,15 @@ En KDP elige **"Con sangrado"** al subir el interior de la versión por defecto.
 | 39 | Soluciones de los laberintos |
 | 40 | Diploma |
 
-Cada página de actividad incluye un dibujo de recompensa "¡Colorea!" en la
-esquina exterior. La primera línea de cada ejercicio es un ejemplo continuo;
+**Color**: portada, ilustraciones de los ejercicios, laberintos, líneas guía,
+títulos y la guirnalda de luces superior (a sangre) van a color. Los dibujos
+pensados para que el niño los pinte se imprimen en línea negra: las páginas
+36-38 de dibujo completo, los dibujos de "Repasa y colorea" (18-20), las
+figuras de "Une los puntos" y el icono de recompensa "¡Colorea!" que lleva
+cada página de actividad en la esquina exterior.
+
+En KDP selecciona **tinta a color** (estándar o premium) al subir este
+interior; el coste de impresión es mayor que en blanco y negro. La primera línea de cada ejercicio es un ejemplo continuo;
 el resto son punteadas, con punto de inicio y flecha de dirección.
 
 ## Estructura

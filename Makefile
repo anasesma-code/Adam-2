@@ -1,6 +1,6 @@
 PY := .venv/bin/python
 
-.PHONY: venv build color nobleed check previews test clean
+.PHONY: venv build bw nobleed check previews test clean
 
 venv:
 	python3 -m venv .venv && .venv/bin/pip install -r requirements.txt
@@ -9,9 +9,9 @@ build:
 	$(PY) scripts/build_book.py
 	$(PY) scripts/preflight.py
 
-color:
-	$(PY) scripts/build_book.py --color -o output/libro_navidad_trazos_color.pdf
-	$(PY) scripts/preflight.py output/libro_navidad_trazos_color.pdf
+bw:
+	$(PY) scripts/build_book.py --bw -o output/libro_navidad_trazos_bn.pdf
+	$(PY) scripts/preflight.py output/libro_navidad_trazos_bn.pdf
 
 nobleed:
 	$(PY) scripts/build_book.py --no-bleed -o output/libro_navidad_trazos_sin_sangrado.pdf

@@ -18,7 +18,7 @@ def test_plan_has_40_pages():
     assert len(page_plan()) == 40
 
 
-@pytest.mark.parametrize("bleed,color", [(True, "bw"), (False, "color")])
+@pytest.mark.parametrize("bleed,color", [(True, "color"), (False, "bw")])
 def test_build_passes_layout_and_preflight(tmp_path, bleed, color):
     cfg = dataclasses.replace(BookConfig(), use_bleed=bleed, color_mode=color)
     out = tmp_path / "book.pdf"
@@ -27,6 +27,11 @@ def test_build_passes_layout_and_preflight(tmp_path, bleed, color):
     n, errors, _ = preflight.check(out, cfg)
     assert n == 40
     assert errors == []
+
+
+def test_colouring_pages_stay_line_art():
+    from navidad_book.palette import COLOR
+    assert COLOR.fills and COLOR.line_art().fills == {}
 
 
 def test_kdp_geometry():

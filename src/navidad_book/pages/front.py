@@ -1,7 +1,7 @@
 """Front matter: title page, "this book belongs to", guide for grown-ups."""
 from .. import graphics as g
 from ..draw import EXAMPLE_LW, guide, start_dot
-from ..frame import activity_frame, snow_ground, header, reward, page_number
+from ..frame import activity_frame, decorate, header, reward, page_number
 from ..layout import Rect
 
 
@@ -21,10 +21,12 @@ def _rounded(ctx, r, radius=14, lw=2.0, dash=None, group="", label="panel"):
 
 def title_page(ctx):
     cfg, s = ctx.cfg, ctx.safe
-    snow_ground(ctx, height=80)
+    decorate(ctx)
     y = s.y1 - 48
-    t1 = ctx.text_fit(cfg.title, s.cx, y, s.w, 50, bold=True)
-    t2 = ctx.text_fit(cfg.subtitle, s.cx, t1.y0 - 36, s.w, 32, bold=True)
+    t1 = ctx.text_fit(cfg.title, s.cx, y, s.w, 50, bold=True,
+                      color=ctx.pal.title)
+    t2 = ctx.text_fit(cfg.subtitle, s.cx, t1.y0 - 36, s.w, 32, bold=True,
+                      color=ctx.pal.fills.get("green"))
     sub = ("Preescritura · Une los puntos · Laberintos · Para colorear")
     t3 = ctx.text_fit(sub, s.cx, t2.y0 - 26, s.w, 15)
 
@@ -61,7 +63,7 @@ def title_page(ctx):
 
 def belongs_page(ctx):
     s = ctx.safe
-    snow_ground(ctx)
+    decorate(ctx)
     top = header(ctx, "Este libro pertenece a:")
     reward(ctx, g.santa_hat)
     page_number(ctx)

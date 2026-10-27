@@ -191,15 +191,14 @@ def dot_page(ctx, key, hint=False):
     obstacles = [Rect(cx + x0 * s, cy + y0 * s, cx + x1 * s, cy + y1 * s)
                  for x0, y0, x1, y1 in shape.deco_boxes]
     if shape.deco:
-        with g._Unit(c, cx, cy, size, ctx.pal) as u:
+        with g._Unit(c, cx, cy, size, ctx.line_pal) as u:
             shape.deco(u)
         for o in obstacles:
             ctx.register(o.x0, o.y0, o.x1, o.y1, group=group, label="deco")
 
     if hint:
         c.saveState()
-        c.setStrokeColor(ctx.pal.soft if ctx.cfg.color_mode == "color"
-                         else ctx.pal.example)
+        c.setStrokeColor(ctx.pal.guide if ctx.pal.fills else ctx.pal.example)
         c.setLineWidth(1)
         c.setDash([2, 5])
         p = c.beginPath()
@@ -220,6 +219,7 @@ def dot_page(ctx, key, hint=False):
     for i, (x, y) in enumerate(pts):
         if i == 0:
             c.setLineWidth(1.5)
+            c.setStrokeColor(ctx.pal.start)
             c.setFillColor(ctx.pal.paper)
             c.circle(x, y, DOT_R + 3.5, stroke=1, fill=1)
             c.setFillColor(ctx.pal.ink)

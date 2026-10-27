@@ -103,7 +103,7 @@ def _direction(pts):
 
 def traced(pal):
     """Palette whose 'ink' is the guide colour (for trace-the-picture)."""
-    return dataclasses.replace(pal, ink=pal.guide)
+    return dataclasses.replace(pal.line_art(), ink=pal.guide)
 
 
 def trace_figure(ctx, fn, cx, cy, size, **kw):

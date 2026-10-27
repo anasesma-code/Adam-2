@@ -86,7 +86,7 @@ def maze_page(ctx, index):
     area = ctx.content
     m = generate(cols, rows, maze_seed(ctx.cfg, index))
     cs, x0, y_top, icon = layout(area, cols, rows)
-    draw_maze(ctx.c, m, x0, y_top, cs, WALL_LW, ctx.pal.ink)
+    draw_maze(ctx.c, m, x0, y_top, cs, WALL_LW, ctx.pal.maze or ctx.pal.ink)
     pad = WALL_LW / 2
     ctx.register(x0 - pad, y_top - rows * cs - pad, x0 + cols * cs + pad,
                  y_top + pad, label="maze")

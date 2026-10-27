@@ -1,6 +1,6 @@
 """Closing pages: maze solutions and the reward diploma."""
 from .. import graphics as g
-from ..frame import activity_frame, snow_ground, page_number
+from ..frame import activity_frame, decorate, page_number
 from ..layout import Rect
 from ..maze import generate
 from .mazes import MAZES, draw_maze, draw_solution, maze_seed
@@ -27,14 +27,15 @@ def solutions_page(ctx):
         y_top = avail.cy + mr * cs / 2
         m = generate(mc, mr, maze_seed(ctx.cfg, i))
         draw_maze(ctx.c, m, x0, y_top, cs, 1.8, ctx.pal.ink)
-        draw_solution(ctx.c, m, x0, y_top, cs, 3.0, ctx.pal.guide)
+        draw_solution(ctx.c, m, x0, y_top, cs, 3.0,
+                      ctx.pal.accent if ctx.pal.fills else ctx.pal.guide)
         ctx.register(x0 - 1, y_top - mr * cs - cs * 0.4 - 2, x0 + mc * cs + 1,
                      y_top + cs * 0.4 + 2, group=grp, label=f"solution{i + 1}")
 
 
 def diploma_page(ctx):
     s = ctx.safe
-    snow_ground(ctx)
+    decorate(ctx)
     page_number(ctx)
     c = ctx.c
     frame = Rect(s.x0 + 4, s.y0 + 40, s.x1 - 4, s.y1 - 4)
@@ -57,7 +58,8 @@ def diploma_page(ctx):
                    (inner.x1 - corner / 2 - 8, inner.y1 - corner / 2 - 8)):
         ctx.art(g.holly, cx, cy, corner, group=grp)
     y = inner.y1 - 60
-    t = ctx.text("¡DIPLOMA!", inner.cx, y, 46, bold=True, group=grp)
+    t = ctx.text("¡DIPLOMA!", inner.cx, y, 46, bold=True, group=grp,
+                 color=ctx.pal.title)
     t = ctx.text_fit("Pequeño gran artista de Navidad", inner.cx, t.y0 - 34,
                      inner.w - 40, 24, bold=True, group=grp)
     t = ctx.text("Este diploma es para:", inner.cx, t.y0 - 40, 17, group=grp)

@@ -29,7 +29,7 @@ class BookConfig:
     margin_bottom: float = 0.5 * INCH
 
     total_pages: int = 40
-    color_mode: str = "bw"  # "bw" (cheaper KDP interior) or "color"
+    color_mode: str = "color"  # "color" or "bw" (cheaper KDP interior)
     seed: int = 2026
 
     title: str = "Mi Libro de Navidad"

@@ -12,7 +12,7 @@ def _scene(ctx, items):
         size = us * unit
         cx = area.x0 + ux * area.w
         cy = area.y0 + uy * area.h
-        ctx.art(fn, cx, cy, size, group=group, **kw)
+        ctx.art(fn, cx, cy, size, group=group, colored=False, **kw)
 
 
 def color_tree(ctx):
